@@ -1,0 +1,15 @@
+html, body { margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; }
+body { display: grid; width: 100vw; height: 100vh; }
+header { text-align: center; align-self: center; font-size: 32px; }
+footer { text-align: center; align-self: center; display:flex;}
+
+div.tiles { display: grid; grid-template-columns: 31% 31% 31%; grid-template-rows:33% 33% 33%; height: 85vh; justify-content: center; }
+
+div.tiles > a { display: grid; text-decoration:none; }
+div.tiles > a > div { text-align: center; margin: 20px; border-radius: 10px; background-color: #eee; border: 2px solid #888; }
+div.tiles > a:hover {background-color:blue; border-radius: 20px;}
+div.tiles > a:hover > div {background-color:#fafafa;border-color:transparent;}
+
+div#super-jay { background: url('assets/tiles/super-jay.png') center center; background-size:contain; background-color: rgba(255,255,255,0.90); }
+div#mii {font-size:125px;font-family:'Imprima';color:#46BCB7;padding:50px 0}
+div#channel-add { background: url('assets/tiles/channel-add.svg') no-repeat center center; background-size:contain; background-color: rgba(255,255,255,0.90); }

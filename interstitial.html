@@ -1,0 +1,36 @@
+<html>
+<head>
+   <title>Gamo</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+   <style>
+      html, body { margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; }
+      #jumbotron { background: center center no-repeat; background-size:contain; }
+      footer { flex: 0 0 150px; display: flex; justify-content: space-around; border-top:2px solid #888;margin-top:10px;padding-top:20px; }
+      footer > a { background: center center no-repeat; width: 300px; height: 125px; border: 2px solid #ccc; border-radius: 20px; }
+      footer > a:hover { background-color: #fafafa; border-color:#8888ff;box-shadow:#000 0px 0px 10px;}
+      #home { background-image: url(assets/tiles/home.png); }
+      #start { background-image: url(assets/tiles/start.png); }
+   </style>
+   <script>
+      window.addEventListener('DOMContentLoaded', () => {
+         const dest = location.hash.slice(1);
+
+         const startAnchor = document.querySelector("#start");
+         startAnchor.setAttribute("href", dest + ".html");
+
+         const jumbotron = document.querySelector("#jumbotron");
+         jumbotron.style.backgroundImage = "url(assets/jumbotron/" + dest + ".svg)";
+      });
+   </script>
+</head>
+<body style="display:flex;flex-direction:column;">
+   <div id="jumbotron" style="flex:1 1 auto;">
+   </div>
+   <footer>
+      <a id="home" href="index.html"></a>
+      <a id="start" href="game.html"></a>
+   </footer>
+</body>
+</html>
