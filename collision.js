@@ -9,8 +9,8 @@ window.addEventListener('DOMContentLoaded', () => {
    const toRad = deg => deg * (Math.PI / 180);
    const getRadius = type => {
       switch (type) {
-         case 0: return 10;
-         case 1: return 10;
+         case 0: return 15;
+         case 1: return 6;
          case 2: return 40;
          case 3: return 40;
       }
@@ -25,18 +25,18 @@ window.addEventListener('DOMContentLoaded', () => {
          missile_time: -100000
       },
       objects: [
-         { type: 0, x: 10, y: 10, rot: toRad(0), vel: 0 },
-         { type: 2, x: 1100, y: 100, rot: toRad(15), vel: 1 },
-         { type: 3, x: 130, y: 1150, rot: toRad(30), vel: 4 },
-         { type: 2, x: 1200, y: 250, rot: toRad(3), vel: 1 },
-         { type: 3, x: 130, y: 310, rot: toRad(10), vel: 4 },
-         { type: 2, x: 1350, y: 1150, rot: toRad(80), vel: 1 },
-         { type: 3, x: 16, y: 410, rot: toRad(20), vel: 4 },
-         { type: 2, x: 190, y: 590, rot: toRad(0), vel: 1 },
-         { type: 3, x: 10, y: 620, rot: toRad(3), vel: 4 },
-         { type: 2, x: 110, y: 715, rot: toRad(9), vel: 1 },
-         { type: 3, x: 1900, y: 850, rot: toRad(12), vel: 4 },
-         { type: 2, x: 1100, y: 910, rot: toRad(20), vel: 1 },
+         { type: 0, x: -1, y: -1, rot: toRad(0), vel: 0, shield: 2 },
+         { type: 2, x: 1100, y: 100, rot: toRad(15), vel: 2 },
+         { type: 3, x: 130, y: 1150, rot: toRad(30), vel: 6 },
+         { type: 2, x: 1200, y: 250, rot: toRad(3), vel: 2 },
+         { type: 3, x: 130, y: 310, rot: toRad(10), vel: 6 },
+         { type: 2, x: 1350, y: 1150, rot: toRad(80), vel: 2 },
+         { type: 3, x: 16, y: 410, rot: toRad(20), vel: 6 },
+         { type: 2, x: 190, y: 590, rot: toRad(0), vel: 2 },
+         { type: 3, x: 10, y: 620, rot: toRad(3), vel: 6 },
+         { type: 2, x: 110, y: 715, rot: toRad(9), vel: 2 },
+         { type: 3, x: 1900, y: 850, rot: toRad(12), vel: 6 },
+         { type: 2, x: 1100, y: 910, rot: toRad(20), vel: 2 },
       ]
    };
 
@@ -58,33 +58,38 @@ window.addEventListener('DOMContentLoaded', () => {
       for (const gamepad of gamepads) {
          if (!gamepad) continue;
 
-         let btn_B = btn_B || gamepad.buttons[0].pressed;
-         let btn_A = btn_A || gamepad.buttons[1].pressed;
-         let btn_Y = btn_Y || gamepad.buttons[2].pressed;
-         let btn_X = btn_X || gamepad.buttons[3].pressed;
-         let btn_LSH = btn_LSH || gamepad.buttons[4].pressed;
-         let btn_RSH = btn_RSH || gamepad.buttons[5].pressed;
-         let btn_SELECT = btn_SELECT || gamepad.buttons[8].pressed;
-         let btn_START = btn_START || gamepad.buttons[9].pressed;
-         let btn_UP = btn_UP || gamepad.buttons[12].pressed;
-         let btn_DOWN = btn_DOWN || gamepad.buttons[13].pressed;
-         let btn_LEFT = btn_LEFT || gamepad.buttons[14].pressed;
-         let btn_RIGHT = btn_RIGHT || gamepad.buttons[15].pressed;
+         btn_B = btn_B || gamepad.buttons[0].pressed;
+         btn_A = btn_A || gamepad.buttons[1].pressed;
+         btn_Y = btn_Y || gamepad.buttons[2].pressed;
+         btn_X = btn_X || gamepad.buttons[3].pressed;
+         btn_LSH = btn_LSH || gamepad.buttons[4].pressed;
+         btn_RSH = btn_RSH || gamepad.buttons[5].pressed;
+         btn_SELECT = btn_SELECT || gamepad.buttons[8].pressed;
+         btn_START = btn_START || gamepad.buttons[9].pressed;
+         btn_UP = btn_UP || gamepad.buttons[12].pressed;
+         btn_DOWN = btn_DOWN || gamepad.buttons[13].pressed;
+         btn_LEFT = btn_LEFT || gamepad.buttons[14].pressed;
+         btn_RIGHT = btn_RIGHT || gamepad.buttons[15].pressed;
       }
+                                       
+      if (btn_SELECT) location.href = 'index.html';
+      if (btn_START) location.reload();
 
       // Update player.
-      if (btn_DOWN) state.objects[0].y += 10;
-      if (btn_RIGHT) state.objects[0].x += 10;
-      if (btn_LEFT) state.objects[0].x -= 10;
-      if (btn_UP) state.objects[0].y -= 10;
-
-      if (btn_LSH) state.objects[0].rot -= 0.1;
-      if (btn_RSH) state.objects[0].rot += 0.1;
-
-      if (state.objects[0].x < 0) state.objects[0].x = state.maxX;
-      if (state.objects[0].y < 0) state.objects[0].y = state.maxY;
-      if (state.objects[0].x > state.maxX) state.objects[0].x = 0;
-      if (state.objects[0].y > state.maxY) state.objects[0].y = 0;
+      if (!state.objects[0].dead && !state.objects[0].win) {
+      	if (btn_DOWN) state.objects[0].y += 10;
+	      if (btn_RIGHT) state.objects[0].x += 10;
+	      if (btn_LEFT) state.objects[0].x -= 10;
+	      if (btn_UP) state.objects[0].y -= 10;
+	
+	      if (btn_LSH) state.objects[0].rot -= 0.1;
+	      if (btn_RSH) state.objects[0].rot += 0.1;
+	
+	      if (state.objects[0].x < 0) state.objects[0].x = state.maxX;
+	      if (state.objects[0].y < 0) state.objects[0].y = state.maxY;
+	      if (state.objects[0].x > state.maxX) state.objects[0].x = 0;
+	      if (state.objects[0].y > state.maxY) state.objects[0].y = 0;
+      }
 
       // Move objects
       for (let i = 0; i < state.objects.length; i++) {
@@ -124,7 +129,24 @@ window.addEventListener('DOMContentLoaded', () => {
                // Implement collision resolution.
 
 
-               if (obj1.type === 1 && obj2.type === 2) {
+               if (obj1.type === 0 && (obj2.type === 2 || obj2.type === 3)) {
+                	// Ship-rock           
+                	obj2.type = 4;
+                	obj2.vel++;
+                	obj2.dead = time + 1000; // Kill the rock.
+                	
+                	// Hurt ship.
+                	obj1.shield--;
+                	
+                	if (obj1.shield < 0) {
+                		// Dead.
+                		obj1.dead = time + 5000;
+                		obj1.type = 4;
+                		
+                		// Disconnect.
+                		state.player.dead = true;
+                	}
+               } else if (obj1.type === 1 && obj2.type === 2) {
                   // Missle-rock
                   obj1.dead = time;
                   obj2.dead = time;
@@ -157,12 +179,12 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       // New missle
-      if (btn_A) {
+      if (btn_A && !state.objects[0].dead) {
          if (state.player.missile_time + 500 < time) {
             const missile = {
                type: 1,
                time: time,
-               dead: time + 2000,
+               dead: time + 750,
                x: state.objects[0].x,
                y: state.objects[0].y,
                rot: state.objects[0].rot,
@@ -180,23 +202,28 @@ window.addEventListener('DOMContentLoaded', () => {
       for (i = state.objects.length - 1; i >= 0; i--)
          if (state.objects[i].dead && state.objects[i].dead < time)
             state.objects.splice(i, 1);
+            
+		if (state.objects.length === 1) {
+			state.player.win = true;
+		}
    }
 
    const draw = time => {
       const ctx = state.ctx;
 
       // Clear the screen.
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = '#DDD';
       ctx.rect(0, 0, state.maxX, state.maxY);
       ctx.fill();
 
       // Logo.
-      ctx.font = "36px Roboto";
-      ctx.fillStyle = "rgba(0, 0, 0, 0.35)";
-      ctx.fillText('Collision', 12, 32);
+      ctx.font = "36px Consolas";
 
-      ctx.fillStyle = "rgba(65, 128, 255, 0.85)";
-      ctx.fillText('Collision', 10, 30);
+		ctx.fillStyle = "rgba(0, 0, 0, 0.85)";      
+      ctx.fillText('Collision', 12, 42);
+
+      ctx.fillStyle = "rgba(128, 128, 128, 0.35)";
+      ctx.fillText('Collision', 10, 40);
 
       // World
       for (let i = 0; i < state.objects.length; i++) {
@@ -207,6 +234,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
          switch (obj.type) {
             case 0: // Ship
+            	ctx.fillStyle = "rgba(32, 64, 128, 0.9)";
                ctx.beginPath();
                ctx.moveTo(-5, -5);
                ctx.lineTo(15, 00);
@@ -214,11 +242,31 @@ window.addEventListener('DOMContentLoaded', () => {
 
                ctx.stroke();
                ctx.fill();
+                                                 
+               ctx.beginPath();
+               let alpha = "0.0";
+               if (obj.shield > 1) {
+               	// Double shield
+               	ctx.arc(5, 0, 17, 0, Math.PI * 2);
+               	ctx.arc(5, 0, 20, 0, Math.PI * 2);
+               	alpha = "0.4";
+               } else if (obj.shield > 0) {
+               	// Single shield
+               	ctx.arc(5, 0, 20, 0, Math.PI * 2);
+               	alpha = "0.15";
+               }
+               
+               ctx.strokeStyle = "#00A";
+               ctx.fillStyle = "rgba(0, 0, 180, " + alpha + ")";
+               
+               ctx.stroke();
+               ctx.fill();
+               
                break;
             case 1: // Missile
-               ctx.fillStyle = "#000";
+               ctx.fillStyle = "#C00";
                ctx.beginPath();
-               ctx.arc(0, 0, 10, 0, Math.PI * 2);
+               ctx.arc(0, 0, 6, 0, Math.PI * 2);
                ctx.fill();
                break;
             case 2: // Rocks
@@ -247,6 +295,32 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       ctx.setTransform(1, 0, 0, 1, 0, 0);
+      
+      if (state.player.dead) {
+      	ctx.beginPath();
+      	ctx.fillStyle = "rgba(64, 0, 0, 0.5)";
+	      ctx.rect(0, 0, state.maxX, state.maxY);
+	      ctx.fill();
+	      
+	      ctx.beginPath();
+	      ctx.font = "120px serif";
+	      ctx.fillStyle = "rgba(255, 255, 255, 1)";
+	      const size = ctx.measureText("Game Over")
+	      ctx.fillText('Game Over', (state.maxX / 2) - (size.width / 2), (state.maxY / 2) - 36);
+	      ctx.fill();
+      } else if (state.player.win) {
+			ctx.beginPath();
+      	ctx.fillStyle = "rgba(0, 64, 0, 0.5)";
+	      ctx.rect(0, 0, state.maxX, state.maxY);
+	      ctx.fill();
+	      
+	      ctx.beginPath();
+	      ctx.font = "120px serif";
+	      ctx.fillStyle = "rgba(255, 255, 255, 1)";
+	      const size = ctx.measureText("Victory")
+	      ctx.fillText('Victory', (state.maxX / 2) - (size.width / 2), (state.maxY / 2) - 36);
+	      ctx.fill();      
+      }
    };
 
    const render = time => {
