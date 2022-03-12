@@ -10,7 +10,10 @@ div.tiles > a > div { text-align: center; margin: 20px; border-radius: 10px; bac
 div.tiles > a:hover {background-color:blue; border-radius: 20px;}
 div.tiles > a:hover > div {background-color:#fafafa;border-color:transparent;}
 
-div#super-jay { background: url('assets/super-jay/tile.png') center center; background-size:contain; background-color: rgba(255,255,255,0.90); }
+div#super-jay { background: url('super-jay/assets/tile.png') center center; background-size:contain; background-color: rgba(255,255,255,0.90); }
 div#mii {font-size:125px;font-family:'Imprima';color:#46BCB7;padding:50px 0}
-div#channel-add { background: url('assets/channel-add/tile.svg') no-repeat center center; background-size:contain; background-color: rgba(255,255,255,0.90); }
-div#collision { background: url('assets/collision/tile.svg') no-repeat center center; background-size:contain; background-color: rgba(255,255,255,0.90); }
+div#channel-add { background: url('channel-add/assets/tile.svg') no-repeat center center; background-size:contain; background-color: rgba(255,255,255,0.90); }
+div#collision { background: url('collision/assets/tile.svg') no-repeat center center; background-size:contain; background-color: rgba(255,255,255,0.90); }
+
+a#mail { align-self: flex-end; width: 12vh; height: 12vh; background: url(mail/assets/tile.svg) bottom center no-repeat; background-size: contain; }
+a#mail:hover {background-image:url('mail/assets/tile-hover.svg');}

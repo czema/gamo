@@ -18,10 +18,10 @@
          const dest = location.hash.slice(1);
 
          const startAnchor = document.querySelector("#start");
-         startAnchor.setAttribute("href", dest + ".html");
+         startAnchor.setAttribute("href", `${dest}/index.html`);
 
          const jumbotron = document.querySelector("#jumbotron");
-         jumbotron.style.backgroundImage = "url(assets/" + dest + "/jumbotron.svg)";
+         jumbotron.style.backgroundImage = `url(${dest}/assets/jumbotron.svg)`;
       });
    </script>
 </head>
